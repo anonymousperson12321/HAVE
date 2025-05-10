@@ -57,7 +57,7 @@
       justify-content: space-between;
     }
     .video-container-three video {
-      width: 28%; /* Adjust width as needed */
+      width: 33%; /* Adjust width as needed */
       height: auto;
     }
   </style>
@@ -68,8 +68,36 @@
       justify-content: space-between;
     }
     .small_video-container video {
-      width: 23%; /* Adjust width as needed */
+      width: 28%; /* Adjust width as needed */
       height: auto;
+    }
+  </style>
+
+  <style>
+    .swiper-slide img {
+      width: 100%;
+      height: auto;
+      object-fit: contain;
+    }
+  </style>
+  <style>
+    .slide-content {
+      text-align: center;
+    }
+  
+    .slide-content img {
+      height: 300px;         /* Fixed height for all images */
+      width: 100%;           /* Full width of slide */
+      object-fit: contain;   /* Preserve aspect ratio and fit inside the box */
+      display: block;
+      margin: 0 auto;        /* Center the image horizontally */
+    }
+  
+    .caption {
+      margin-bottom: 8px;
+      font-size: 16px;
+      font-weight: 500;
+      color: #333;
     }
   </style>
 
@@ -173,6 +201,276 @@
           </div>
         </div>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- Abstract. -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            We introduce a novel <b>History-Aware VErifier (HAVE)</b> to disambiguate uncertain scenarios online by leveraging past interactions. Robots frequently encounter visually ambiguous objects whose manipulation outcomes remain uncertain until physically interacted with. While generative models alone could theoretically adapt to such ambiguity, in practice they obtain suboptimal performance in ambiguous cases, even when conditioned on action history.  
+          </p>
+          <p>
+            To address this, we propose explicitly decoupling action generation from verification: we use an unconditional diffusion-based generator to propose multiple candidate actions and employ our history-aware verifier to select the most promising action by reasoning about past interactions.
+          </p>
+          <p>
+            Through theoretical analysis, we demonstrate that employing a verifier significantly improves expected action quality. Empirical evaluations and analysis across multiple simulated and real-world environments including articulated objects, multi-modal doors, and uneven object pick-up confirm the effectiveness of our method and improvements over baselines.
+          </p>
+        </div>
+      </div>
+    </div>
+</section>
+<!--/ Abstract. -->
+
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <h2 class="title is-3" style="margin-top: 40px;">Real World Demos</h2>
+    </div>
+    
+    <h2 class="subtitle has-text-centered">
+      We demonstrate the performance of HAVE on a real world ambiguous door: 
+    </h2>
+    <h2 class="subtitle has-text-centered", style="margin-top: -20px;">
+      HAVE can <b>explore possible open modes efficiently</b>, <b>avoiding repeating failure actions</b>.
+    </h2>
+    
+    <div class="video-container-three">
+      <video id="matting-video" controls playsinline height="100%">
+        <source src="./static/videos/pull_left_1step.mp4"
+                type="video/mp4">
+      </video>
+      <video id="matting-video" controls playsinline height="100%">
+        <source src="./static/videos/pull_left_2step.mp4"
+                type="video/mp4">
+      </video>
+      <video id="matting-video" controls playsinline height="100%">
+        <source src="./static/videos/pull_right_2step.mp4"
+                type="video/mp4">
+      </video>
+    </div>
+    
+    <div class="video-container-three">
+      <video id="matting-video" controls playsinline height="100%">
+        <source src="./static/videos/pull_right_3step.mp4"
+                type="video/mp4">
+      </video>
+      <video id="matting-video" controls playsinline height="100%">
+        <source src="./static/videos/push_left_1step.mp4"
+                type="video/mp4">
+      </video>
+      <video id="matting-video" controls playsinline height="100%">
+        <source src="./static/videos/push_right_1step.mp4"
+                type="video/mp4">
+      </video>
+    </div>
+    
+    <h2 class="subtitle has-text-left", style="margin-top: 30px;">
+      <b>Example 1: </b>
+    </h2>
+    <h2 class="subtitle has-text-left", style="margin-top: -10px;">
+      In a pull-left door, the agent succeeds after 3 steps: the verifier suppresses the failed pull-right mode after step 1, and both generator and verifier recognize the slight opening after step 2 to guide the correct action.
+    </h2>
+    <img id="teaser" src="./static/images/real_world_plll.png"
+                  type="image/jpg">
+    </img>
+    <h2 class="subtitle has-text-left", style="margin-top: 30px;">
+      <b>Example 2: </b>
+    </h2>
+    <h2 class="subtitle has-text-left", style="margin-top: -10px;">
+      In a pull-right door, the agent fails with push-left at step 1, and with the verifier consistently suppressing this failure mode, they predict the correct action in the second step despite generator ambiguity.</h2>
+    <img id="teaser" src="./static/images/real_world_pllr.png"
+                  type="image/jpg">
+    </img>
+  </div>
+</section>
+
+<!--Quantitative Results-->
+<section class="hero teaser">
+  <div class="columns is-centered has-text-centered">
+    <h2 class="title is-3", style="margin-top: 60px;">Quantitative Results</h2>
+  </div>
+
+  <!-- Swiper CSS -->
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/swiper/swiper-bundle.min.css"
+  />
+
+  <!-- Swiper HTML Block -->
+  <div class="swiper mySwiper" style="width: 800px; margin: 20px auto;">
+    <div class="swiper-wrapper">
+      <div class="swiper-slide">
+        <div class="slide-content">
+          <p class="subtitle has-text-centered">Simulation: Ambiguous Door</p>
+          <img src="./static/images/door_performance.png" alt="Slide 1" />
+        </div>
+      </div>
+      <div class="swiper-slide">
+        <div class="slide-content">
+          <p class="subtitle has-text-centered">Real World: Ambiguous Door</p>
+          <img src="./static/images/real_world_door.png" alt="Slide 2" />
+        </div>
+      </div>
+      <div class="swiper-slide">
+        <div class="slide-content">
+          <p class="subtitle has-text-centered">Articulated Objects (Full Set)</p>
+          <img src="./static/images/articulated_fullset.png" alt="Slide 3" />
+        </div>
+      </div>
+      <div class="swiper-slide">
+        <div class="slide-content">
+          <p class="subtitle has-text-centered">Articulated Objects (Held-out)</p>
+          <img src="./static/images/articulated_heldout.png" alt="Slide 4" />
+        </div>
+      </div>
+      <div class="swiper-slide">
+        <div class="slide-content">
+          <p class="subtitle has-text-centered">Uneven Object Pick-up</p>
+          <img src="./static/images/uneven_object.png" alt="Slide 5" />
+        </div>
+      </div>
+    </div>
+
+    <!-- Optional navigation and pagination -->
+    <div class="swiper-pagination"></div>
+    <div class="swiper-button-prev"></div>
+    <div class="swiper-button-next"></div>
+  </div>
+
+  <!-- Swiper JS -->
+  <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+
+  <!-- Swiper Initialization -->
+  <script>
+    var swiper = new Swiper(".mySwiper", {
+      loop: true,
+      autoplay: {
+        delay: 3000,
+        disableOnInteraction: false,
+      },
+      pagination: {
+        el: ".swiper-pagination",
+        clickable: true,
+      },
+      navigation: {
+        nextEl: ".swiper-button-next",
+        prevEl: ".swiper-button-prev",
+      },
+    });
+  </script>
+</section>
+<!--Quantitative Results-->
+
+
+<!--Analysis-->
+<section class="hero teaser">
+  <div class="columns is-centered has-text-centered">
+    <h2 class="title is-3", style="margin-top: 60px;">Analysis</h2>
+  </div>
+
+  <!-- Swiper CSS -->
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/swiper/swiper-bundle.min.css"
+  />
+
+  <!-- Swiper HTML Block -->
+  <div class="swiper mySwiper" style="width: 800px; margin: 20px auto;">
+    <div class="swiper-wrapper">
+      <div class="swiper-slide">
+        <div class="slide-content">
+          <p class="subtitle has-text-centered">Performance with Different Sample Count</p>
+          <p class="caption"><b>Time and Accuracy vs Number of Samples</b>: On the left, we plot the time used for generator and verifier w.r.t the number of generated samples; On the right, we plot the  failure rate w.r.t sample count, comparing HAVE with an oracle verifier (which always selects the best sample from a given batch).</p>
+          <img src="./static/images/analysis/sample_cnt.png" alt="Slide 1" />
+        </div>
+      </div>
+      <div class="swiper-slide">
+        <div class="slide-content">
+          <p class="subtitle has-text-centered">Robustness to Noisy Flow</p>
+          <p class="caption"><b>Robustness to Noisy Flow:</b> HAVE outperforms a vanilla transformer baseline under noisy observation flow, demonstrating improved robustness across all articulated object environments.</p>
+          <img src="./static/images/analysis/transformer.png" alt="Slide 2" />
+        </div>
+      </div>
+      <div class="swiper-slide">
+        <div class="slide-content">
+          <p class="subtitle has-text-centered">Performance with History Length</p>
+          <p class="caption"><b>History Length Analysis</b>: Increasing history length from 1 to 5 steps significantly improves verifier performance, while longer histories offer diminishing improvements due to redundancy and potential instability.</p>
+          <img src="./static/images/analysis/history_len.png" alt="Slide 6" />
+        </div>
+      </div>
+      <div class="swiper-slide">
+        <div class="slide-content">
+          <p class="subtitle has-text-centered">Learning from Failure History (Articulated)</p>
+          <p class="caption"><b>Failure History Analysis</b>: Actions matching failed modes receive lower verifier scores, leading to nearly 100% of top-selected actions avoiding repeated failures, demonstrating HAVE’s ability to learn from failure histories.</p>
+          <img src="./static/images/analysis/failure_articulated.png" alt="Slide 2" />
+        </div>
+      </div>
+      <div class="swiper-slide">
+        <div class="slide-content">
+          <p class="subtitle has-text-centered">Learning from Success History (Articulated)</p>
+          <p class="caption has-text-left"><b>Success History Analysis</b>: Given a successful history, the verifier accurately identifies better grasp points and directions under severe occlusion, demonstrating its ability to generalize from past successes even with large viewpoint changes.</p>
+          <img src="./static/images/analysis/success_history.png" alt="Slide 4" />
+        </div>
+      </div>
+      <div class="swiper-slide">
+        <div class="slide-content">
+          <p class="subtitle has-text-centered">Learning from Failure History (Uneven)</p>
+          <p class="caption has-text-left"><b>Failure History (Uneven Objects)</b>: HAVE selects actions within the theoretical center of mass range at each step, converging to the ground truth with fewer attempts, while the generator baseline fails to leverage informative failure cues.</p>
+          <img src="./static/images/analysis/failure_uneven.png" alt="Slide 5" />
+        </div>
+      </div>
+    </div>
+
+    <!-- Optional navigation and pagination -->
+    <div class="swiper-pagination"></div>
+    <div class="swiper-button-prev"></div>
+    <div class="swiper-button-next"></div>
+  </div>
+
+  <!-- Swiper JS -->
+  <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+
+  <!-- Swiper Initialization -->
+  <script>
+    var swiper = new Swiper(".mySwiper", {
+      loop: true,
+      autoplay: {
+        delay: 3000,
+        disableOnInteraction: false,
+      },
+      pagination: {
+        el: ".swiper-pagination",
+        clickable: true,
+      },
+      navigation: {
+        nextEl: ".swiper-button-next",
+        prevEl: ".swiper-button-prev",
+      },
+    });
+  </script>
+</section>
+<!--Quantitative Results-->
+
+
+
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <h2 class="title is-3", style="margin-top: 60px;">Model Architecture</h2>
+    </div>
+    <div class="hero-body">
+      <h2 class="subtitle has-text-centered">
+        HAVE scores action candidates by encoding past actions and results with PointNet++ and attention.
+      </h2>
+      <img id="teaser" src="./static/images/architecture.png"
+                type="image/jpg">
+      </img>
     </div>
   </div>
 </section>
